@@ -13,7 +13,6 @@ chessboard = [
 
 //moves from 4,4
 
-// const pairs = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 const pairs = [[-1,-2], [-2,-1], [-2,1], [-1,2], [+1,2], [2,1], [2,-1], [1,-2]];
 
 const getMoves = (currentPos) => {
@@ -27,7 +26,8 @@ const getMoves = (currentPos) => {
         const coordinateMove = [first,second];
 
         //write some check here to make sure the move is actually valid
-        if (coordinateMove[0] > 0 && coordinateMove[0] < 9) {
+        if (coordinateMove[0] >= 0 && coordinateMove[0] < 9 && 
+            coordinateMove[1] >= 0 && coordinateMove[1] < 9) {
             arrCoordinates.push(coordinateMove)
         }
     }
@@ -36,7 +36,7 @@ const getMoves = (currentPos) => {
 
 }
 
-getMoves([3,4]);
+getMoves([1,3]);
 const checkPosition = (currentMove) => {
     //function that takes in our current move
     //checks whether that move is valid on the board layout, we don't want moves going off the board
