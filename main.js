@@ -27,14 +27,9 @@ const getMoves = (currentPos) => {
         const coordinateMove = [first,second];
 
         //write some check here to make sure the move is actually valid
-        // const testCoordinate = [first][second];
-        // console.log(coordinateMove[0], coordinateMove[1]);
-
-        if (!coordinateMove[0] < 0 || coordinateMove[0] > 8) {
+        if (coordinateMove[0] > 0 && coordinateMove[0] < 9) {
             arrCoordinates.push(coordinateMove)
         }
-
-       
     }
     console.log(arrCoordinates)
     // console.log(arrCoordinates); //returns array of actual coordinates of the potential move
