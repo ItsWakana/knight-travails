@@ -14,16 +14,18 @@ chessboard = [
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 
 const getToTarget = (currentPos, target) => {
-    const stack = [ currentPos ];
+    const queue = [ currentPos ];
     const visited = new Set();
-
-    while (stack.length > 0) {
-        const current = stack.pop();
+    
+    let counter = -1;
+    while (queue.length > 0) {
+        const current = queue.shift();
         const currentString = `${current.x},${current.y}`;
-        // if (visited.has(currentString)) continue;
         console.log(currentString);
+        counter++;
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
+            console.log(`Reached ${currentString} in ${counter} moves`);
             return current;
         }
 
@@ -36,9 +38,8 @@ const getToTarget = (currentPos, target) => {
 
             if (move.x >= 0 && move.x < 8 && 
                 move.y >= 0 && move.y < 8) {
-                // visited.add(moveToString);
                 if (!visited.has(moveToString)) {
-                    stack.push(move);
+                    queue.push(move);
                 }
             }
         }
@@ -51,8 +52,8 @@ const start = {
 }
 
 const destination = {
-    x: 3,
-    y: 3
+    x: 5,
+    y: 0
 }
 
 // getToTarget([7,1], [3,3]);
