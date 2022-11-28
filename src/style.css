@@ -1,0 +1,35 @@
+*,*::before,*::after {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 500px;
+    height: 500px;
+    background-color: black;
+    border: solid 4px black;
+    gap: 7px;
+}
+
+.container .row {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height: 100%;
+    width: 5px;
+}
+
+.row .box {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}

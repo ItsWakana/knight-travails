@@ -1,3 +1,5 @@
+import { Grid } from "./DOM";
+
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 
 const getToTarget = (currentPos, target) => {
@@ -61,4 +63,7 @@ const destination = {
 }
 
 // getToTarget([7,1], [3,3]);
-getToTarget(start, destination);
+// getToTarget(start, destination);
+
+const grid = new Grid(8);
+grid.createGrid();
