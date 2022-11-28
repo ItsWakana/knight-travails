@@ -4,7 +4,7 @@ const getToTarget = (currentPos, target) => {
     const queue = [ currentPos ];
     const visited = new Set();
     const backtrackObj = {};
-    let counter = -1;
+
     while (queue.length > 0) {
         const current = queue.shift();
         const currentString = `${current.x},${current.y}`;
@@ -12,11 +12,9 @@ const getToTarget = (currentPos, target) => {
         if (Object.keys(backtrackObj).length === 0) {
         backtrackObj[currentString] = null;
         }
-        counter++;
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
-            // console.log(`Reached ${currentString} in ${counter} moves`);
-            backtrackOrder(backtrackObj, currentPos, currentString);
+            backtrackOrder(backtrackObj, currentString);
             return;
         }
 
@@ -38,28 +36,28 @@ const getToTarget = (currentPos, target) => {
     }
 }
 
-const backtrackOrder = (obj, origin, current) => {
+const backtrackOrder = (obj, currentPosition) => {
     const fastestOrder = [];
-    const originString = `${origin.x},${origin.y}`;
 
-    while (obj[current] != null) {
-        fastestOrder.push(current);
+    while (obj[currentPosition]) {
+        fastestOrder.push(currentPosition);
 
-        current = obj[current];
+        currentPosition = obj[currentPosition];
     }
+    fastestOrder.push(currentPosition);
 
-    fastestOrder.push(current);
-    console.log(fastestOrder);
+    console.log(`You made it in ${fastestOrder.length -1} moves, here is your path:`)
+    console.log(fastestOrder.reverse());
 }
 
 const start = {
-    x: 0,
-    y: 0
+    x: 3,
+    y: 3
 }
 
 const destination = {
-    x: 3,
-    y: 3
+    x: 0,
+    y: 0
 }
 
 // getToTarget([7,1], [3,3]);
