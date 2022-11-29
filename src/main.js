@@ -16,7 +16,8 @@ const getToTarget = (currentPos, target) => {
         }
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
-            backtrackOrder(backtrackObj, currentString);
+            // backtrackOrder(backtrackObj, currentString);
+            console.log(currentString)
             return;
         }
 
@@ -52,16 +53,39 @@ const backtrackOrder = (obj, currentPosition) => {
     console.log(fastestOrder.reverse());
 }
 
+export const startRoute = (coordinate) => {
+    if (start.x === null && start.y === null) {
+        start.x = coordinate[0];
+        start.y = coordinate[2];
+        // console.log(start);
+        return;
+    } 
+    destination.x = coordinate[0];
+    destination.y = coordinate[2];
+    // console.log(destination);
+    getToTarget(start, destination);
+
+}
+
+// const start = {
+//     x: 3,
+//     y: 3
+// }
+
+// const destination = {
+//     x: 0,
+//     y: 0
+// }
+
 const start = {
-    x: 3,
-    y: 3
+    x: null,
+    y: null
 }
 
 const destination = {
-    x: 0,
-    y: 0
+    x: null,
+    y: null
 }
-
 // getToTarget([7,1], [3,3]);
 // getToTarget(start, destination);
 

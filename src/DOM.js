@@ -1,5 +1,5 @@
 import './style.css';
-
+import { startRoute } from './main';
 export class Grid {
 
     constructor(size) {
@@ -7,9 +7,6 @@ export class Grid {
     }
 
     createGrid() {
-        //create a main container for the grid. 
-        //in the first loop, create 7 columns or rows
-        // in the second inner loop, we want to create 7 boxes to go inside these columns or rows.
         const gridContainer = document.createElement('div');
         gridContainer.className = 'container';
         document.body.append(gridContainer);
@@ -18,11 +15,17 @@ export class Grid {
             const row = document.createElement('div');
             row.className = 'row';
             gridContainer.append(row);
+            row.dataset.x = i;
 
             for (let j=0; j<this.size; j++) {
                 const box = document.createElement('div');
                 box.className = 'box';
                 row.append(box);
+                box.dataset.y = j;
+                box.addEventListener('click', () => {
+                    const coordinate = `${row.dataset.x},${box.dataset.y}`;
+                    startRoute(coordinate);
+                })
             }
         }
 
