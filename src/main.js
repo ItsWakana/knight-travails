@@ -2,7 +2,7 @@ import { Grid } from "./DOM";
 
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 
-const getToTarget = (currentPos, target) => {
+export const getToTarget = (currentPos, target) => {
     const queue = [ currentPos ];
     const visited = new Set();
     const backtrackObj = {};
@@ -10,14 +10,13 @@ const getToTarget = (currentPos, target) => {
     while (queue.length > 0) {
         const current = queue.shift();
         const currentString = `${current.x},${current.y}`;
-
+        
         if (Object.keys(backtrackObj).length === 0) {
         backtrackObj[currentString] = null;
         }
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
-            // backtrackOrder(backtrackObj, currentString);
-            console.log(currentString)
+            backtrackOrder(backtrackObj, currentString);
             return;
         }
 
@@ -55,13 +54,13 @@ const backtrackOrder = (obj, currentPosition) => {
 
 export const startRoute = (coordinate) => {
     if (start.x === null && start.y === null) {
-        start.x = coordinate[0];
-        start.y = coordinate[2];
+        start.x = +coordinate[0];
+        start.y = +coordinate[2];
         // console.log(start);
         return;
     } 
-    destination.x = coordinate[0];
-    destination.y = coordinate[2];
+    destination.x = +coordinate[0];
+    destination.y = +coordinate[2];
     // console.log(destination);
     getToTarget(start, destination);
 
