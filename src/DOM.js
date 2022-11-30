@@ -29,8 +29,8 @@ export class Grid {
                 // box.append(modalTest)
                 box.addEventListener('click', () => {
                     const coordinate = `${row.dataset.x},${box.dataset.y}`;
-                    this.coordinateModal(box, coordinate);
                     startRoute(coordinate, box);
+                    this.coordinateModal(box, coordinate);
                 })
             }
         }
@@ -40,7 +40,12 @@ export class Grid {
     coordinateModal(container, coordinate) {
         const modal = document.createElement('div');
         modal.className = 'modal';
-        modal.textContent = coordinate;
+        if (container.dataset.position === 'start') {
+            modal.textContent = `Start: ${coordinate}`;
+
+        } else {
+            modal.textContent = `Destination: ${coordinate}`;
+        }
 
         container.append(modal);
     }

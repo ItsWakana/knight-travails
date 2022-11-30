@@ -57,11 +57,13 @@ export const startRoute = (coordinate, tile) => {
         start.x = +coordinate[0];
         start.y = +coordinate[2];
         // tile.textContent = 'S';
+        tile.dataset.position = 'start';
         tile.style.backgroundColor = 'grey';
         return;
     } 
     destination.x = +coordinate[0];
     destination.y = +coordinate[2];
+    tile.dataset.position = 'end';
     tile.style.backgroundColor = 'grey';
     getToTarget(start, destination);
 
