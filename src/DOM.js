@@ -22,12 +22,26 @@ export class Grid {
                 box.className = 'box';
                 row.append(box);
                 box.dataset.y = j;
+                
+                // const modalTest = document.createElement('div');
+                // modalTest.textContent = j;
+                // modalTest.className = 'modal';
+                // box.append(modalTest)
                 box.addEventListener('click', () => {
                     const coordinate = `${row.dataset.x},${box.dataset.y}`;
-                    startRoute(coordinate);
+                    this.coordinateModal(box, coordinate);
+                    startRoute(coordinate, box);
                 })
             }
         }
 
+    }
+
+    coordinateModal(container, coordinate) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.textContent = coordinate;
+
+        container.append(modal);
     }
 }

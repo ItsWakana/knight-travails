@@ -52,29 +52,20 @@ const backtrackOrder = (obj, currentPosition) => {
     console.log(fastestOrder.reverse());
 }
 
-export const startRoute = (coordinate) => {
+export const startRoute = (coordinate, tile) => {
     if (start.x === null && start.y === null) {
         start.x = +coordinate[0];
         start.y = +coordinate[2];
-        // console.log(start);
+        // tile.textContent = 'S';
+        tile.style.backgroundColor = 'grey';
         return;
     } 
     destination.x = +coordinate[0];
     destination.y = +coordinate[2];
-    // console.log(destination);
+    tile.style.backgroundColor = 'grey';
     getToTarget(start, destination);
 
 }
-
-// const start = {
-//     x: 3,
-//     y: 3
-// }
-
-// const destination = {
-//     x: 0,
-//     y: 0
-// }
 
 const start = {
     x: null,
@@ -85,8 +76,6 @@ const destination = {
     x: null,
     y: null
 }
-// getToTarget([7,1], [3,3]);
-// getToTarget(start, destination);
 
 const grid = new Grid(8);
 grid.createGrid();
