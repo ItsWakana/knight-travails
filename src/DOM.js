@@ -1,5 +1,6 @@
 import './style.css';
 import { startRoute } from './main';
+import knightIcon from './assets/knight.svg';
 export class Grid {
 
     constructor(size) {
@@ -22,24 +23,19 @@ export class Grid {
                 box.className = 'box';
                 row.append(box);
                 box.dataset.y = j;
-                
-                // const modalTest = document.createElement('div');
-                // modalTest.textContent = j;
-                // modalTest.className = 'modal';
-                // box.append(modalTest)
+         
                 box.addEventListener('click', () => {
                     if (gridContainer.dataset.pathFinished === 'true') return;
                     const coordinate = `${row.dataset.x},${box.dataset.y}`;
+                    this.displayKnightOnGrid(knightIcon, box);
                     const route = startRoute(coordinate, box);
                     if (route) {
                         this.displayResult(route)
-                        // console.log(route);
                     }
                     this.coordinateModal(box, coordinate, gridContainer);
-                })
+                });
             }
         }
-
     }
 
     coordinateModal(container, coordinate, gridContainer) {
@@ -47,7 +43,6 @@ export class Grid {
         modal.className = 'modal';
         if (container.dataset.position === 'start') {
             modal.textContent = `Start: ${coordinate}`;
-
         } else {
             modal.textContent = `Destination: ${coordinate}`;
             gridContainer.dataset.pathFinished = 'true';
@@ -71,5 +66,19 @@ export class Grid {
         console.log(result);
         document.body.append(displayContainer);
         displayContainer.append(displayResult, displayMoves);
+    }
+
+    displayKnightOnGrid(icon, square) {
+        const knightIcon = new Image();
+        knightIcon.src = icon;
+        knightIcon.id = 'knight';
+
+        square.appendChild(knightIcon);
+    }
+
+    visualResultModal() {
+        const modal = document.getElementById('results-grid');
+
+        
     }
 }

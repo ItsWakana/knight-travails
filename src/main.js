@@ -17,7 +17,6 @@ export const getToTarget = (currentPos, target) => {
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
             return backtrackOrder(backtrackObj, currentString);
-            // return;
         }
 
         for (let child of possibleMoves) {
@@ -48,8 +47,6 @@ const backtrackOrder = (obj, currentPosition) => {
     }
     fastestOrder.push(currentPosition);
 
-    // console.log(`You made it in ${fastestOrder.length -1} moves, here is your path:`)
-    // console.log(fastestOrder.reverse());
     return fastestOrder.reverse();
 }
 
@@ -58,13 +55,11 @@ export const startRoute = (coordinate, tile) => {
         start.x = +coordinate[0];
         start.y = +coordinate[2];
         tile.dataset.position = 'start';
-        tile.style.backgroundColor = 'grey';
         return;
     } 
     destination.x = +coordinate[0];
     destination.y = +coordinate[2];
     tile.dataset.position = 'end';
-    tile.style.backgroundColor = 'grey';
     return getToTarget(start, destination);
 
 }
