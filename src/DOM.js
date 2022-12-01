@@ -1,15 +1,21 @@
 import './style.css';
 import { startRoute } from './main';
 import knightIcon from './assets/knight.svg';
+
 export class Grid {
 
     constructor(size) {
         this.size = size;
     }
 
-    createGrid() {
+    createGrid(resultGrid = false) {
         const gridContainer = document.createElement('div');
-        gridContainer.className = 'container';
+
+        if (resultGrid) {
+            gridContainer.className = 'results-grid';
+        } else {
+            gridContainer.className = 'container';
+        } 
         document.body.append(gridContainer);
 
         for (let i=0; i<this.size; i++) {
@@ -23,21 +29,32 @@ export class Grid {
                 box.className = 'box';
                 row.append(box);
                 box.dataset.y = j;
-         
-                box.addEventListener('click', () => {
-                    if (gridContainer.dataset.pathFinished === 'true') return;
-                    const coordinate = `${row.dataset.x},${box.dataset.y}`;
-                    this.displayKnightOnGrid(knightIcon, box);
-                    const route = startRoute(coordinate, box);
-                    if (route) {
-                        this.displayResult(route)
-                    }
-                    this.coordinateModal(box, coordinate, gridContainer);
-                });
+                if (!resultGrid) { 
+                    this.displayKnightMovesOnClick(box, row, gridContainer);
+                }
+
             }
         }
+
     }
 
+    createResultGrid() {
+        //instead of using the original grid creation we should create a new and smaller grid for the overlay. 
+    }
+
+    displayKnightMovesOnClick(box, row, container) {
+
+        box.addEventListener('click', () => {
+            if (container.dataset.pathFinished === 'true') return;
+            const coordinate = `${row.dataset.x},${box.dataset.y}`;
+            this.displayKnightOnGrid(knightIcon, box);
+            const route = startRoute(coordinate, box);
+            if (route) {
+                this.displayResult(route)
+            }
+            this.coordinateModal(box, coordinate, container);
+        });
+    }
     coordinateModal(container, coordinate, gridContainer) {
         const modal = document.createElement('div');
         modal.className = 'modal';
@@ -64,8 +81,11 @@ export class Grid {
         const chop = displayMoves.textContent.substring(0,displayMoves.textContent.length -2);
         displayMoves.textContent = chop;
         console.log(result);
+
+        
         document.body.append(displayContainer);
         displayContainer.append(displayResult, displayMoves);
+        this.renderResultsButton(displayContainer);
     }
 
     displayKnightOnGrid(icon, square) {
@@ -76,9 +96,26 @@ export class Grid {
         square.appendChild(knightIcon);
     }
 
-    visualResultModal() {
-        const modal = document.getElementById('results-grid');
+    renderResultsButton(container) {
+        const button = document.createElement('button');
+        button.className = 'results-button';
+        button.textContent = 'See moves';
+        button.addEventListener('click', () => {
+            this.visualResultModal();
+        })
+        container.appendChild(button);
+    }
 
+    visualResultModal() {
+        const secondGrid = new Grid(this.size);
+
+        const modal = document.querySelector('.results-grid');
+        modal.classList.add('visible');
+
+
+        secondGrid.createGrid(true);
         
+
+
     }
 }
