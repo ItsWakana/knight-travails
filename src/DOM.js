@@ -55,6 +55,7 @@ export class Grid {
             this.coordinateModal(box, coordinate, container);
         });
     }
+    
     coordinateModal(container, coordinate, gridContainer) {
         const modal = document.createElement('div');
         modal.className = 'modal';
