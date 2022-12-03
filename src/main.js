@@ -1,4 +1,5 @@
 import { Grid } from "./DOM";
+import { ResultGrid } from "./DOM";
 
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 
@@ -76,3 +77,5 @@ const destination = {
 
 const grid = new Grid(8);
 grid.createGrid();
+
+// ResultGrid.displayResult(8);
