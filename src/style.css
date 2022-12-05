@@ -72,5 +72,22 @@ body {
     background-color: white;
     border: solid 4px black;
     position: absolute;
+    z-index: 3;
+}
+
+#overlay {
+    background-color: rgba(0,0,0, .5);
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 2;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }

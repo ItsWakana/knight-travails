@@ -1,5 +1,4 @@
 import { Grid } from "./DOM";
-import { ResultGrid } from "./DOM";
 
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 

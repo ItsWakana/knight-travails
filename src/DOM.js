@@ -38,10 +38,6 @@ export class Grid {
 
     }
 
-    createResultGrid() {
-        //instead of using the original grid creation we should create a new and smaller grid for the overlay. 
-    }
-
     displayKnightMovesOnClick(box, row, container) {
 
         box.addEventListener('click', () => {
@@ -50,6 +46,8 @@ export class Grid {
             this.displayKnightOnGrid(knightIcon, box);
             const route = startRoute(coordinate, box);
             if (route) {
+                ResultGrid.route = route;
+                // console.log(ResultGrid.route);
                 this.displayResult(route)
             }
             this.coordinateModal(box, coordinate, container);
@@ -81,7 +79,6 @@ export class Grid {
         }
         const chop = displayMoves.textContent.substring(0,displayMoves.textContent.length -2);
         displayMoves.textContent = chop;
-        console.log(result);
 
         
         document.body.append(displayContainer);
@@ -113,17 +110,20 @@ export class Grid {
         
         
         // secondGrid.createGrid(true);
-        ResultGrid.displayResult(this.size);
-        
+        ResultGrid.makeGrid(this.size);
+        // ResultGrid.displayPathsOnGrid(ResultGrid.route);
         const modal = document.querySelector('.results-grid');
         modal.classList.add('visible');
 
-
+        document.getElementById('overlay').classList.add('active');
     }
 }
 
-export class ResultGrid {
-    static displayResult(gridSize) {
+class ResultGrid {
+
+    static makeGrid(gridSize) {
+        const routeArray = ResultGrid.route; //this data needs to be imported from our logic module and not here.
+        let counter = 1;
         const gridCheck = document.querySelector('.results-grid');
         if (gridCheck) return;
         const gridContainer = document.createElement('div');
@@ -132,20 +132,45 @@ export class ResultGrid {
 
         document.body.append(gridContainer);
 
+        console.log(routeArray);
         for (let i=0; i<gridSize; i++) {
             const row = document.createElement('div');
             row.className = 'row';
             gridContainer.append(row);
-            row.dataset.x = i;
+            // row.dataset.x = i;
 
             for (let j=0; j<gridSize; j++) {
                 const box = document.createElement('div');
                 box.className = 'box';
                 row.append(box);
+                box.dataset.x = i;
                 box.dataset.y = j;
             }
         }
 
+        this.displayPathsOnGrid(routeArray);
+
         gridContainer.classList.add('visible');
-    } 
+    }
+    
+    static displayPathsOnGrid(array) {
+
+        const boxes = document.querySelectorAll('.box');
+
+        let counter = 0;
+
+        for (let coordinate of array) {
+            boxes.forEach((box) => {
+                if (box.dataset.x === coordinate[0] && box.dataset.y === coordinate[2]) {
+                    box.textContent = counter;
+                    box.style.backgroundColor = 'lightblue';
+
+                    if (counter === 0) {
+                        box.textContent = 'S';
+                    }
+                    counter++;
+                }
+            })
+        }
+    }
 }
