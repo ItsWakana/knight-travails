@@ -105,17 +105,17 @@ export class Grid {
     }
 
     visualResultModal() {
-        // const secondGrid = new Grid(this.size);
-
-        
-        
-        // secondGrid.createGrid(true);
         ResultGrid.makeGrid(this.size);
         // ResultGrid.displayPathsOnGrid(ResultGrid.route);
         const modal = document.querySelector('.results-grid');
         modal.classList.add('visible');
 
-        document.getElementById('overlay').classList.add('active');
+
+        const overlay = document.getElementById('overlay')
+        overlay.classList.add('active');
+        overlay.addEventListener('click', () => {
+            // ResultGrid.removeGrid();
+        });
     }
 }
 
@@ -172,5 +172,13 @@ class ResultGrid {
                 }
             })
         }
+    }
+
+    static removeGrid() {
+        const body = document.body;
+
+        const resultsGrid = document.querySelector('.results-grid');
+
+        body.removeChild(resultsGrid);
     }
 }
