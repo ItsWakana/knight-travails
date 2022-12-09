@@ -1,4 +1,4 @@
-import { Grid } from "./DOM";
+import { UI } from "./UI";
 
 const possibleMoves = [[-1,-2], [-2,-1], [-2,1], [-1,2], [1,2], [2,1], [2,-1], [1,-2]];
 
@@ -16,6 +16,7 @@ export const getToTarget = (currentPos, target) => {
         }
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
+            console.log(backtrackObj);
             return backtrackOrder(backtrackObj, currentString);
         }
 
@@ -74,7 +75,5 @@ const destination = {
     y: null
 }
 
-const grid = new Grid(8);
+const grid = new UI(8);
 grid.createGrid();
-
-// ResultGrid.displayResult(8);

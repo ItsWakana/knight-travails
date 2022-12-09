@@ -2,10 +2,14 @@ import './style.css';
 import { startRoute } from './main';
 import knightIcon from './assets/knight.svg';
 
-export class Grid {
+export class UI {
 
     constructor(size) {
         this.size = size;
+    }
+
+    renderUI() {
+        this.createGrid();
     }
 
     createGrid(resultGrid = false) {
@@ -47,7 +51,6 @@ export class Grid {
             const route = startRoute(coordinate, box);
             if (route) {
                 ResultGrid.route = route;
-                // console.log(ResultGrid.route);
                 this.displayResult(route)
             }
             this.coordinateModal(box, coordinate, container);
@@ -127,7 +130,6 @@ class ResultGrid {
         const gridCheck = document.querySelector('.results-grid');
         if (gridCheck) return;
         const gridContainer = document.createElement('div');
-        // const gridContainer = document.querySelector('.results-grid');
         gridContainer.className = 'results-grid';
 
         document.body.append(gridContainer);
@@ -137,7 +139,6 @@ class ResultGrid {
             const row = document.createElement('div');
             row.className = 'row';
             gridContainer.append(row);
-            // row.dataset.x = i;
 
             for (let j=0; j<gridSize; j++) {
                 const box = document.createElement('div');
@@ -167,6 +168,7 @@ class ResultGrid {
 
                     if (counter === 0) {
                         box.textContent = 'S';
+                        box.style.backgroundColor = 'green';
                     }
                     counter++;
                 }
