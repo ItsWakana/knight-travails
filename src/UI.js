@@ -48,7 +48,6 @@ export class UI {
             this.displayKnightOnGrid(knightIcon, box);
             const route = startRoute(coordinate, box);
             if (route) {
-                // ResultGrid.route = route;
                 finishedRoute = route;
                 this.displayResult(route)
             }
@@ -98,13 +97,22 @@ export class UI {
     }
 
     static renderResultsButton(container) {
-        const button = document.createElement('button');
-        button.className = 'results-button';
-        button.textContent = 'See moves';
-        button.addEventListener('click', () => {
+        const detailsButton = document.createElement('button');
+        detailsButton.className = 'results-button';
+        detailsButton.textContent = 'See moves';
+
+        const newPathButton = document.createElement('button');
+        newPathButton.className = 'restart-button';
+        newPathButton.textContent = 'New path';
+
+        detailsButton.addEventListener('click', () => {
             this.visualResultModal();
+        });
+
+        newPathButton.addEventListener('click', () => {
+            this.startNewRoute();
         })
-        container.appendChild(button);
+        container.append(detailsButton, newPathButton);
     }
 
     static visualResultModal() {
@@ -116,6 +124,19 @@ export class UI {
         const overlay = document.getElementById('overlay')
         overlay.classList.add('active');
     }
+
+    static startNewRoute() {
+        const container = document.querySelector('.container');
+        // this.clearBoard();
+        // this.renderUI();
+    }
+
+//     static clearBoard() {
+//         const body = document.body;
+//         while (body.hasChildNodes()) {
+//             body.removeChild(body.lastChild);
+//         }
+//     }
 }
 
 class ResultGrid {
@@ -188,7 +209,10 @@ class ResultGrid {
         const body = document.body;
 
         body.removeChild(container);
-        container.removeChild(button);
+
+        if (button) {
+            container.removeChild(button);
+        }
 
 
     }
