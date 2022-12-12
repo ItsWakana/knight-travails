@@ -71,6 +71,7 @@ export class UI {
 
     static displayResult(result) {
         const displayContainer = document.createElement('div');
+        displayContainer.className = 'text-result-container';
 
         const displayResult = document.createElement('p');
         const displayMoves = document.createElement('p');
@@ -170,11 +171,12 @@ class ResultGrid {
             boxes.forEach((box) => {
                 if (box.dataset.x === coordinate[0] && box.dataset.y === coordinate[2]) {
                     box.textContent = counter;
-                    box.style.backgroundColor = 'lightblue';
+                    box.style.backgroundColor = 'white';
 
                     if (counter === 0) {
                         box.textContent = 'S';
-                        box.style.backgroundColor = 'green';
+                        box.style.backgroundColor = 'rgb(8, 22, 36)';
+                        box.style.color = 'white';
                     }
                     counter++;
                 }
