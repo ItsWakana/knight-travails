@@ -1,5 +1,5 @@
 import './style.css';
-import { startRoute } from './main';
+import { startRoute, finishedRoute } from './routeLogic';
 import knightIcon from './assets/knight.svg';
 
 export class UI {
@@ -48,7 +48,8 @@ export class UI {
             this.displayKnightOnGrid(knightIcon, box);
             const route = startRoute(coordinate, box);
             if (route) {
-                ResultGrid.route = route;
+                // ResultGrid.route = route;
+                finishedRoute = route;
                 this.displayResult(route)
             }
             this.coordinateModal(box, coordinate, container);
@@ -107,16 +108,12 @@ export class UI {
 
     static visualResultModal() {
         ResultGrid.makeGrid();
-        // ResultGrid.displayPathsOnGrid(ResultGrid.route);
         const modal = document.querySelector('.results-grid');
         modal.classList.add('visible');
 
 
         const overlay = document.getElementById('overlay')
         overlay.classList.add('active');
-        overlay.addEventListener('click', () => {
-            // ResultGrid.removeGrid();
-        });
     }
 }
 
@@ -125,8 +122,6 @@ class ResultGrid {
     static gridSize = 8;
 
     static makeGrid() {
-        const routeArray = ResultGrid.route; //this data needs to be imported from our logic module and not here.
-        let counter = 1;
         const gridCheck = document.querySelector('.results-grid');
         if (gridCheck) return;
         const gridContainer = document.createElement('div');
@@ -143,8 +138,6 @@ class ResultGrid {
         });
         document.body.append(gridContainer);
 
-
-        console.log(routeArray);
         for (let i=0; i<this.gridSize; i++) {
             const row = document.createElement('div');
             row.className = 'row';
@@ -159,7 +152,7 @@ class ResultGrid {
             }
         }
 
-        this.displayPathsOnGrid(routeArray);
+        this.displayPathsOnGrid(finishedRoute);
 
         gridContainer.classList.add('visible');
     }
@@ -199,8 +192,6 @@ class ResultGrid {
 
         if (overlay.classList.contains('active')) {
             overlay.classList.remove('active');
-        } else {
-            overlay.classList.add('active');
         }
     }
 }
