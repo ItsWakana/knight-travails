@@ -128,15 +128,18 @@ class ResultGrid {
         gridContainer.className = 'results-grid';
 
         const exitButton = document.createElement('button');
+        exitButton.className = 'close-button';
         exitButton.textContent = 'Close';
 
         gridContainer.appendChild(exitButton);
 
         exitButton.addEventListener('click', () => {
-            this.removeGrid(gridContainer);
+            this.removeElement(gridContainer, exitButton);
             this.toggleOverlay();
         });
+
         document.body.append(gridContainer);
+
 
         for (let i=0; i<this.gridSize; i++) {
             const row = document.createElement('div');
@@ -179,10 +182,11 @@ class ResultGrid {
         }
     }
 
-    static removeGrid(container) {
+    static removeElement(container, button) {
         const body = document.body;
 
         body.removeChild(container);
+        container.removeChild(button);
 
 
     }
