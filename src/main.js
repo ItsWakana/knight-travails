@@ -75,5 +75,7 @@ const destination = {
     y: null
 }
 
-const grid = new UI(8);
-grid.createGrid();
+// const grid = new UI(8);
+// grid.createGrid();
+
+UI.renderUI();

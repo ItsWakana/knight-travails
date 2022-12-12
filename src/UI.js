@@ -4,15 +4,13 @@ import knightIcon from './assets/knight.svg';
 
 export class UI {
 
-    constructor(size) {
-        this.size = size;
-    }
+    static gridSize = 8;
 
-    renderUI() {
+    static renderUI() {
         this.createGrid();
     }
 
-    createGrid(resultGrid = false) {
+    static createGrid(resultGrid = false) {
         const gridContainer = document.createElement('div');
 
         if (resultGrid) {
@@ -22,13 +20,13 @@ export class UI {
         } 
         document.body.append(gridContainer);
 
-        for (let i=0; i<this.size; i++) {
+        for (let i=0; i<this.gridSize; i++) {
             const row = document.createElement('div');
             row.className = 'row';
             gridContainer.append(row);
             row.dataset.x = i;
 
-            for (let j=0; j<this.size; j++) {
+            for (let j=0; j<this.gridSize; j++) {
                 const box = document.createElement('div');
                 box.className = 'box';
                 row.append(box);
@@ -42,7 +40,7 @@ export class UI {
 
     }
 
-    displayKnightMovesOnClick(box, row, container) {
+    static displayKnightMovesOnClick(box, row, container) {
 
         box.addEventListener('click', () => {
             if (container.dataset.pathFinished === 'true') return;
@@ -57,7 +55,7 @@ export class UI {
         });
     }
     
-    coordinateModal(container, coordinate, gridContainer) {
+    static coordinateModal(container, coordinate, gridContainer) {
         const modal = document.createElement('div');
         modal.className = 'modal';
         if (container.dataset.position === 'start') {
@@ -70,7 +68,7 @@ export class UI {
         container.append(modal);
     }
 
-    displayResult(result) {
+    static displayResult(result) {
         const displayContainer = document.createElement('div');
 
         const displayResult = document.createElement('p');
@@ -89,7 +87,7 @@ export class UI {
         this.renderResultsButton(displayContainer);
     }
 
-    displayKnightOnGrid(icon, square) {
+    static displayKnightOnGrid(icon, square) {
         const knightIcon = new Image();
         knightIcon.src = icon;
         knightIcon.id = 'knight';
@@ -97,7 +95,7 @@ export class UI {
         square.appendChild(knightIcon);
     }
 
-    renderResultsButton(container) {
+    static renderResultsButton(container) {
         const button = document.createElement('button');
         button.className = 'results-button';
         button.textContent = 'See moves';
@@ -107,8 +105,8 @@ export class UI {
         container.appendChild(button);
     }
 
-    visualResultModal() {
-        ResultGrid.makeGrid(this.size);
+    static visualResultModal() {
+        ResultGrid.makeGrid();
         // ResultGrid.displayPathsOnGrid(ResultGrid.route);
         const modal = document.querySelector('.results-grid');
         modal.classList.add('visible');
@@ -124,7 +122,9 @@ export class UI {
 
 class ResultGrid {
 
-    static makeGrid(gridSize) {
+    static gridSize = 8;
+
+    static makeGrid() {
         const routeArray = ResultGrid.route; //this data needs to be imported from our logic module and not here.
         let counter = 1;
         const gridCheck = document.querySelector('.results-grid');
@@ -132,15 +132,25 @@ class ResultGrid {
         const gridContainer = document.createElement('div');
         gridContainer.className = 'results-grid';
 
+        const exitButton = document.createElement('button');
+        exitButton.textContent = 'Close';
+
+        gridContainer.appendChild(exitButton);
+
+        exitButton.addEventListener('click', () => {
+            this.removeGrid(gridContainer);
+            this.toggleOverlay();
+        });
         document.body.append(gridContainer);
 
+
         console.log(routeArray);
-        for (let i=0; i<gridSize; i++) {
+        for (let i=0; i<this.gridSize; i++) {
             const row = document.createElement('div');
             row.className = 'row';
             gridContainer.append(row);
 
-            for (let j=0; j<gridSize; j++) {
+            for (let j=0; j<this.gridSize; j++) {
                 const box = document.createElement('div');
                 box.className = 'box';
                 row.append(box);
@@ -176,11 +186,21 @@ class ResultGrid {
         }
     }
 
-    static removeGrid() {
+    static removeGrid(container) {
         const body = document.body;
 
-        const resultsGrid = document.querySelector('.results-grid');
+        body.removeChild(container);
 
-        body.removeChild(resultsGrid);
+
+    }
+
+    static toggleOverlay() {
+        const overlay = document.querySelector('#overlay');
+
+        if (overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+        } else {
+            overlay.classList.add('active');
+        }
     }
 }
