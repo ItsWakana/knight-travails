@@ -1,5 +1,5 @@
 import './style.css';
-import { startRoute, finishedRoute } from './routeLogic';
+import { startRoute, finishedRoute, setPositionsToDefault } from './routeLogic';
 import knightIcon from './assets/knight.svg';
 
 export class UI {
@@ -49,7 +49,7 @@ export class UI {
             const route = startRoute(coordinate, box);
             if (route) {
                 finishedRoute = route;
-                this.displayResult(route)
+                this.displayResult(route);
             }
             this.coordinateModal(box, coordinate, container);
         });
@@ -121,22 +121,25 @@ export class UI {
         modal.classList.add('visible');
 
 
-        const overlay = document.getElementById('overlay')
+        const overlay = document.getElementById('overlay');
         overlay.classList.add('active');
     }
 
     static startNewRoute() {
         const container = document.querySelector('.container');
-        // this.clearBoard();
-        // this.renderUI();
+        this.clearBoard();
+        setPositionsToDefault();
+        this.renderUI();
     }
 
-//     static clearBoard() {
-//         const body = document.body;
-//         while (body.hasChildNodes()) {
-//             body.removeChild(body.lastChild);
-//         }
-//     }
+    static clearBoard() {
+        const body = document.body;
+        const overlay = document.getElementById('overlay');
+        while (body.hasChildNodes()) {
+            if (body.lastChild === overlay) return;
+            body.removeChild(body.lastChild);
+        }
+    }
 }
 
 class ResultGrid {

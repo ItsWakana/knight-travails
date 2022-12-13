@@ -66,6 +66,14 @@ export const startRoute = (coordinate, tile) => {
 
 }
 
+export const setPositionsToDefault = () => {
+    start.x = null;
+    start.y = null;
+
+    destination.x = null;
+    destination.y = null;
+}
+
 const start = {
     x: null,
     y: null
