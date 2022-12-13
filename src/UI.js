@@ -48,6 +48,7 @@ export class UI {
             this.displayKnightOnGrid(knightIcon, box);
             const route = startRoute(coordinate, box);
             if (route) {
+                console.log(route);
                 finishedRoute = route;
                 this.displayResult(route);
             }
@@ -73,18 +74,33 @@ export class UI {
         displayContainer.className = 'text-result-container';
 
         const displayResult = document.createElement('p');
-        const displayMoves = document.createElement('p');
+        // const displayMoves = document.createElement('p');
 
         displayResult.textContent = `You made it in ${result.length -1} moves.`;
+        let counter = 0;
+        displayContainer.appendChild(displayResult);
+
         for (let move of result) {
-            displayMoves.textContent += ` [${move}] =>`;
+            // displayMoves.textContent += ` [${move}] =>`;
+
+            const displayMove = document.createElement('p');
+
+            if (counter === 0) {
+                displayMove.textContent = `S: [${move}] `;
+                displayContainer.appendChild(displayMove);
+                counter++;
+            } else {
+            displayMove.textContent = `${counter++}: [${move}] `;
+            displayContainer.appendChild(displayMove);
+            }
         }
-        const chop = displayMoves.textContent.substring(0,displayMoves.textContent.length -2);
-        displayMoves.textContent = chop;
+
+        // const chop = displayMoves.textContent.substring(0,displayMoves.textContent.length -2);
+        // displayMoves.textContent = chop;
 
         
         document.body.append(displayContainer);
-        displayContainer.append(displayResult, displayMoves);
+        // displayContainer.append(displayResult, displayMoves);
         this.renderResultsButton(displayContainer);
     }
 

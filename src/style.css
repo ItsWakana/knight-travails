@@ -6,12 +6,14 @@
 
 body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* flex-direction: column; */
+    /* align-items: center; */
+    justify-content: center;
     width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: rgb(8, 22, 36);
     margin-top: 30px;
+    gap: 20px;
 }
 
 .container {
@@ -118,7 +120,7 @@ button {
 .text-result-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
     gap: 4px;
     color: white;

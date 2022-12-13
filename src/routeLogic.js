@@ -18,6 +18,7 @@ export const getToTarget = (currentPos, target) => {
         }
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
+            console.log(backtrackObj);
             return backtrackOrder(backtrackObj, currentString);
         }
 
