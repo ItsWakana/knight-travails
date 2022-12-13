@@ -17,7 +17,7 @@ body {
 .container {
     display: flex;
     width: 70%;
-    max-width: 700px;
+    max-width: 500px;
     border: solid 4px white;
 }
 
@@ -46,9 +46,9 @@ body {
 
 .modal {
     text-align: center;
-    background-color: rgb(37, 121, 201);
+    background-color: #cee61c;
     font-size: 80%;
-    color: white;
+    color: rgb(8, 22, 36);
     padding: 7px;
     position: absolute;
     /* left: -120px; */
@@ -102,8 +102,8 @@ body {
 button {
     border: none;
     outline: none;
-    background-color: #2579c9;
-    color: white;
+    background-color: #cee61c;
+    color: rgb(8, 22, 36);
     font-weight: bold;
     padding: 9px;
     border-radius: 5px;
@@ -112,6 +112,7 @@ button {
 
 .close-button {
     background-color: red;
+    color: white;
 }
 
 .text-result-container {
