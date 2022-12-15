@@ -4,9 +4,12 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+:root {
+    font-size: 16px;
+}
 body {
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: row;
     /* align-items: center; */
     justify-content: center;
     width: 100vw;
@@ -19,7 +22,7 @@ body {
 .container {
     display: flex;
     width: 70%;
-    max-width: 500px;
+    max-width: 400px;
     border: solid 4px white;
 }
 
@@ -49,12 +52,12 @@ body {
 .modal {
     text-align: center;
     background-color: #cee61c;
-    font-size: 80%;
+    font-size: 0.7rem;
     color: rgb(8, 22, 36);
     padding: 7px;
     position: absolute;
     /* left: -120px; */
-    top: 50px;
+    top: 2rem;
     border: solid 3px rgb(8, 22, 36);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -110,6 +113,18 @@ button {
     padding: 9px;
     border-radius: 5px;
     cursor: pointer;
+    transition: 250ms;
+}
+
+.restart-button {
+    background-color: rgb(8, 22, 36);
+    color: #cee61c;
+    border: solid 2px #cee61c;
+}
+
+.results-button, 
+.restart-button {
+    margin-top: 6px;
 }
 
 .close-button {
@@ -122,10 +137,21 @@ button {
     flex-direction: column;
     align-items: flex-start;
     text-align: center;
-    gap: 4px;
+    gap: 5px;
     color: white;
 }
 
 .text-result-container button {
     width: 60%;
+}
+
+@media all and (max-width: 500px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .text-result-container {
+        align-items: center;
+    }
 }

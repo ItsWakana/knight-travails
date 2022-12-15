@@ -32,7 +32,9 @@ export class UI {
                 row.append(box);
                 box.dataset.y = j;
                 if (!resultGrid) { 
-                    this.displayKnightMovesOnClick(box, row, gridContainer);
+                    box.addEventListener('click', () => {
+                        this.makeMove(box, row, gridContainer);
+                    });
                 }
 
             }
@@ -40,20 +42,18 @@ export class UI {
 
     }
 
-    static displayKnightMovesOnClick(box, row, container) {
+    static makeMove(box, row, container) {
+        if (container.dataset.pathFinished === 'true') return;
+        const coordinate = `${row.dataset.x},${box.dataset.y}`;
+        const route = startRoute(coordinate, box);
+        this.displayKnightOnGrid(knightIcon, box);
 
-        box.addEventListener('click', () => {
-            if (container.dataset.pathFinished === 'true') return;
-            const coordinate = `${row.dataset.x},${box.dataset.y}`;
-            this.displayKnightOnGrid(knightIcon, box);
-            const route = startRoute(coordinate, box);
-            if (route) {
-                console.log(route);
-                finishedRoute = route;
-                this.displayResult(route);
-            }
-            this.coordinateModal(box, coordinate, container);
-        });
+        if (route) {
+            console.log(route);
+            finishedRoute = route;
+            this.displayResult(route);
+        }
+        this.coordinateModal(box, coordinate, container);
     }
     
     static coordinateModal(container, coordinate, gridContainer) {
@@ -70,19 +70,17 @@ export class UI {
     }
 
     static displayResult(result) {
+
         const displayContainer = document.createElement('div');
         displayContainer.className = 'text-result-container';
 
         const displayResult = document.createElement('p');
-        // const displayMoves = document.createElement('p');
 
         displayResult.textContent = `You made it in ${result.length -1} moves.`;
         let counter = 0;
         displayContainer.appendChild(displayResult);
 
         for (let move of result) {
-            // displayMoves.textContent += ` [${move}] =>`;
-
             const displayMove = document.createElement('p');
 
             if (counter === 0) {
@@ -94,13 +92,8 @@ export class UI {
             displayContainer.appendChild(displayMove);
             }
         }
-
-        // const chop = displayMoves.textContent.substring(0,displayMoves.textContent.length -2);
-        // displayMoves.textContent = chop;
-
         
         document.body.append(displayContainer);
-        // displayContainer.append(displayResult, displayMoves);
         this.renderResultsButton(displayContainer);
     }
 

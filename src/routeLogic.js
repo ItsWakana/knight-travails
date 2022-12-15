@@ -18,7 +18,6 @@ export const getToTarget = (currentPos, target) => {
         }
         visited.add(currentString);
         if (current.x === target.x && current.y ===  target.y) {
-            console.log(backtrackObj);
             return backtrackOrder(backtrackObj, currentString);
         }
 
@@ -62,6 +61,7 @@ export const startRoute = (coordinate, tile) => {
     } 
     destination.x = +coordinate[0];
     destination.y = +coordinate[2];
+
     tile.dataset.position = 'end';
     return getToTarget(start, destination);
 
